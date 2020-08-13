@@ -9,7 +9,3 @@ E-commerce - Trabalho final de persistência
 - Renato Santana Brito - 337364
 - Victor Tokudo Kiam - 337385
 
-## Tecnologias e API's
-
-* [Java 11]
-* [Maven]
