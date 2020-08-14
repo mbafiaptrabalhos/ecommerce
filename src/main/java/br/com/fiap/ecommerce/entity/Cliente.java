@@ -1,27 +1,29 @@
 package br.com.fiap.ecommerce.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "cliente")
-@Getter @Setter
+@Table(name = "clientes")
+@Getter @Setter @Builder
 public class Cliente {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "cod_cliente")
-    private int codCliente;
-    @Column
+    @Column(name = "ID")
+    private Long id;
+    @Column(name = "NOME")
     private String nome;
-    @Column
+    @Column(name = "CPF")
     private String cpf;
-    @Column(name = "end_cobranca")
-    private String enderecoCobranca;
-    @Column(name = "end_entrega")
-    private String enderecoEntrega;
-    @Column
+    @Column(name = "CNPJ")
+    private String cnpj;
+    @Column(name = "ATIVO")
     private boolean ativo;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
+    private Set<Endereco> enderecos = new LinkedHashSet<>();
 }
