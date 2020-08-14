@@ -21,8 +21,9 @@ public class Endereco {
     private String cidade;
     @Column(name = "CEP")
     private String cep;
+    @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_ENDERECO")
-    private String tipoEndereco;
+    private TipoEndereco tipoEndereco;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDCLIENTE")
     private Cliente cliente;
