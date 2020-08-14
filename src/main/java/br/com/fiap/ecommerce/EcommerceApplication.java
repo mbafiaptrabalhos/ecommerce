@@ -84,22 +84,6 @@ public class EcommerceApplication implements CommandLineRunner {
 
         clienteRepository.save(cliente);
 
-//        Pedido pedido = new Pedido();
-//        pedido.setDataPedido(Calendar.getInstance());
-//        pedido.setTipoPagamento(tipoPagamento);
-//
-//        pedido.setValorTotal(new BigDecimal(200.0));
-//        pedido.setCliente(cliente);
-//
-//        Pedido pedido2 = new Pedido();
-//        pedido2.setDataPedido(Calendar.getInstance());
-//        pedido2.setTipoPagamento(tipoPagamento);
-//        pedido2.setValorTotal(new BigDecimal(3000.0));
-//        pedido2.setCliente(cliente);
-//
-//        pedidoRepository.save(pedido);
-//        pedidoRepository.save(pedido2);
-
         CategoriaProduto categoriaProduto = CategoriaProduto.builder()
                 .categoria("Eletrodomestico")
                 .build();
