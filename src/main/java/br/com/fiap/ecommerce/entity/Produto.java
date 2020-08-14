@@ -24,9 +24,6 @@ public class Produto {
     @Column(name = "VALOR_UNITARIO")
     private BigDecimal valorUnitario;
 
-    @ManyToOne
-    private Pedido pedido;
-
     @OneToOne
     private CategoriaProduto categoriaProduto;
 }

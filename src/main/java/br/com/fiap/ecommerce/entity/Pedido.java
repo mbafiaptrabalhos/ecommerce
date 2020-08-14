@@ -3,8 +3,10 @@ package br.com.fiap.ecommerce.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "pedido")
@@ -22,6 +24,26 @@ public class Pedido {
 
     @ManyToOne
     private Cliente cliente;
+    @OneToOne
+    private TipoPagamento tipoPagamento;
+    @OneToMany
+    private List<Produto> produtos = new ArrayList<>();
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public TipoPagamento getTipoPagamento() {
+        return tipoPagamento;
+    }
+
+    public void setTipoPagamento(TipoPagamento tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
+    }
 
     public Long getId() {
         return id;
