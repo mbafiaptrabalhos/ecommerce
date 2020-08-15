@@ -23,8 +23,6 @@ public interface IEcommerceService {
 
 	List<Entrega> getAllEntrega();
 
-	List<Pedido> getAllPedido();
-
 	List<Produto> getAllProduto();
 
 	List<Rastreamento> getAllRastreamento();
@@ -32,11 +30,15 @@ public interface IEcommerceService {
 	List<Status> getAllStatus();
 
 	List<TipoPagamento> getAllTipoPagamento();
+	
+	List<Pedido> getAllPedido();
 
 	// Get id
 	Produto getProdutoById(long id);
 
 	Cliente getClienteById(long id);
+	
+	Pedido getPedidoById(long id);
 
 	// Add
 	Produto addProduto(Produto produto);
@@ -45,17 +47,20 @@ public interface IEcommerceService {
 
 	CategoriaProduto addCategoria(CategoriaProduto categoria);
 
+	Pedido addPedido(Pedido pedido);
+	
 	// Delete
 	void deleteProduto(long id);
 
 	void deleteCliente(long id);
 
 	void deleteCategoria(long id);
-
+	
 	// Update
 	Produto updateProduto(Produto produto);
 
 	Cliente updateCliente(Cliente cliente);
 
 	CategoriaProduto updateCategoria(CategoriaProduto categoria);
+	
 }
