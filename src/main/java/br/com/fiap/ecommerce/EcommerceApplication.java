@@ -76,19 +76,20 @@ public class EcommerceApplication implements CommandLineRunner {
         cliente.setCnpj("");
         cliente.setCpf("214.789.456-89");
         cliente.setEnderecos(enderecos);
+        cliente.setAtivo(true);
+
+        clienteRepository.save(cliente);
 
         TipoPagamento tipoPagamento = new TipoPagamento();
         tipoPagamento.setFormaPagamento(FormaPagamento.BOLETO);
         tipoPagamento.setAtivo(true);
         tipoPagamentoRepository.save(tipoPagamento);
 
-        clienteRepository.save(cliente);
-
         CategoriaProduto categoriaProduto = new CategoriaProduto();
         categoriaProduto.setCategoria("Eletrodomestico");
 
         CategoriaProduto categoriaProduto2 = new CategoriaProduto();
-        categoriaProduto.setCategoria("Celular");
+        categoriaProduto2.setCategoria("Celular");
 
         categoriaProdutoRepository.save(categoriaProduto);
         categoriaProdutoRepository.save(categoriaProduto2);
