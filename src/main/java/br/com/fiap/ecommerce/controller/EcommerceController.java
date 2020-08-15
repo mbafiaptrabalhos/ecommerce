@@ -1,24 +1,156 @@
 package br.com.fiap.ecommerce.controller;
 
-import br.com.fiap.ecommerce.entity.Cliente;
-import br.com.fiap.ecommerce.service.IEcommerceService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
+import br.com.fiap.ecommerce.entity.CategoriaProduto;
+import br.com.fiap.ecommerce.entity.Cliente;
+import br.com.fiap.ecommerce.entity.Endereco;
+import br.com.fiap.ecommerce.entity.Entrega;
+import br.com.fiap.ecommerce.entity.Produto;
+import br.com.fiap.ecommerce.entity.Rastreamento;
+import br.com.fiap.ecommerce.entity.Status;
+import br.com.fiap.ecommerce.entity.TipoPagamento;
+import br.com.fiap.ecommerce.service.IEcommerceService;
 
 @RestController
 @RequestMapping("/api")
 public class EcommerceController {
 
-    @Autowired
-    IEcommerceService service;
+	@Autowired
+	IEcommerceService service;
 
-    @GetMapping("/list")
-    public ResponseEntity<List<Cliente>> getAllClientes() {
-        return ResponseEntity.ok(service.getAllCliente());
-    }
+	// Get All
+	@GetMapping("/clientes")
+	public ResponseEntity<List<Cliente>> getAllCliente() {
+		return ResponseEntity.ok(service.getAllCliente());
+	}
+
+	@GetMapping("/categoriaProduto")
+	public ResponseEntity<List<CategoriaProduto>> getAllCategorias() {
+		return ResponseEntity.ok(service.getAllCategorias());
+	}
+
+	@GetMapping("/entrega")
+	public ResponseEntity<List<Entrega>> getAllEntrega() {
+		return ResponseEntity.ok(service.getAllEntrega());
+	}
+
+	@GetMapping("/produtos")
+	public ResponseEntity<List<Produto>> getAllProduto() {
+		return ResponseEntity.ok(service.getAllProduto());
+	}
+
+	@GetMapping("/rastreamento")
+	public ResponseEntity<List<Rastreamento>> getAllRastreamento() {
+		return ResponseEntity.ok(service.getAllRastreamento());
+	}
+
+	@GetMapping("/status")
+	public ResponseEntity<List<Status>> getAllStatus() {
+		return ResponseEntity.ok(service.getAllStatus());
+	}
+
+	@GetMapping("/tipoPagamento")
+	public ResponseEntity<List<TipoPagamento>> getAllTipoPagamento() {
+		return ResponseEntity.ok(service.getAllTipoPagamento());
+	}
+
+	@GetMapping("/endereco")
+	public ResponseEntity<List<Endereco>> getAllEndereco() {
+		return ResponseEntity.ok(service.getAllEndereco());
+	}
+
+	// Get id
+
+	@GetMapping("produto/{id}")
+	public ResponseEntity<Produto> getProdutoById(@PathVariable("id") Long id) {
+		Produto produto = service.getProdutoById(id);
+		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
+	}
+
+	@GetMapping("clientes/{id}")
+	public ResponseEntity<Cliente> getClienteById(@PathVariable("id") Long id) {
+		Cliente cliente = service.getClienteById(id);
+		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+	}
+
+	// Add
+
+	@PostMapping("produto")
+	public ResponseEntity<Void> addProduto(@RequestBody Produto produto, UriComponentsBuilder builder) {
+		Produto salvarProduto = service.addProduto(produto);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(builder.path("/produto/{id}").buildAndExpand(salvarProduto.getId()).toUri());
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+
+	@PostMapping("cliente") 
+	public ResponseEntity<Void> addCliente(@RequestBody Cliente cliente, UriComponentsBuilder builder) {
+		Cliente salvarCliente = service.addCliente(cliente);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(builder.path("/produto/{id}").buildAndExpand(salvarCliente.getId()).toUri());
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+
+	@PostMapping("categoria")
+	public ResponseEntity<Void> addCategoria(@RequestBody CategoriaProduto categoria, UriComponentsBuilder builder) {
+		CategoriaProduto salvarCategoria = service.addCategoria(categoria);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(builder.path("/produto/{id}").buildAndExpand(salvarCategoria.getId()).toUri());
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+
+	// Delete
+
+	@DeleteMapping("produto/{id}")
+	public ResponseEntity<Void> deleteProduto(@PathVariable("id") Long id) {
+		service.deleteProduto(id);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+
+	@DeleteMapping("cliente/{id}")
+	public ResponseEntity<Void> deleteCliente(@PathVariable("id") Long id) {
+		service.deleteCliente(id);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+
+	@DeleteMapping("categoria/{id}")
+	public ResponseEntity<Void> deleteCategoria(@PathVariable("id") Long id) {
+		service.deleteCategoria(id);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+
+	// Update
+
+	@PutMapping("produto")
+	public ResponseEntity<Produto> updateProduto(@RequestBody Produto produto) {
+		service.updateProduto(produto);
+		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
+	}
+
+	@PutMapping("cliente")
+	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente cliente) {
+		service.updateCliente(cliente);
+		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+	}
+
+	@PutMapping("categoria")
+	public ResponseEntity<CategoriaProduto> updateCategoria(@RequestBody CategoriaProduto categoria) {
+		service.updateCategoria(categoria);
+		return new ResponseEntity<CategoriaProduto>(categoria, HttpStatus.OK);
+	}
 }
