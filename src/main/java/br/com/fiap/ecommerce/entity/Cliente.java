@@ -1,5 +1,6 @@
 package br.com.fiap.ecommerce.entity;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,24 +19,31 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "clientes")
-@Getter @Setter
-public class Cliente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-    @Column(name = "NOME")
-    private String nome;
-    @Column(name = "CPF")
-    private String cpf;
-    @Column(name = "CNPJ")
-    private String cnpj;
-    @Column(name = "ATIVO")
-    private boolean ativo;
+@Getter
+@Setter
+public class Cliente implements Serializable {
 
-    @OneToMany
-    private Set<Endereco> enderecos = new LinkedHashSet<Endereco>();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public Cliente() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+	@Column(name = "NOME")
+	private String nome;
+	@Column(name = "CPF")
+	private String cpf;
+	@Column(name = "CNPJ")
+	private String cnpj;
+	@Column(name = "ATIVO")
+	private boolean ativo;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Endereco> enderecos = new LinkedHashSet<Endereco>();
+
+	public Cliente() {
+	}
 }

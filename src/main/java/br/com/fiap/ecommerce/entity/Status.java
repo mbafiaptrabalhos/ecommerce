@@ -1,5 +1,7 @@
 package br.com.fiap.ecommerce.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,16 +17,23 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "status")
-@Getter @Setter
-public class Status {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS_RASTREAMENTO")
-    StatusRastreamento statusRastreamento;
+@Getter
+@Setter
+public class Status implements Serializable {
 
-    public Status() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "STATUS_RASTREAMENTO")
+	StatusRastreamento statusRastreamento;
+
+	public Status() {
+	}
 }

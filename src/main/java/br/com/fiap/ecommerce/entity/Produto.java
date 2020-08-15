@@ -1,5 +1,6 @@
 package br.com.fiap.ecommerce.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -15,24 +16,31 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "produto")
-@Setter @Getter
-public class Produto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-    @Column(name = "NOME")
-    private String nome;
-    @Column(name = "DESCRICAO")
-    private String descricao;
-    @Column(name = "VALOR_UNITARIO")
-    private BigDecimal valorUnitario;
+@Setter
+@Getter
+public class Produto implements Serializable {
 
-    @OneToOne
-    private CategoriaProduto categoriaProduto;
-    @OneToOne
-    private Estoque estoque;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public Produto() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+	@Column(name = "NOME")
+	private String nome;
+	@Column(name = "DESCRICAO")
+	private String descricao;
+	@Column(name = "VALOR_UNITARIO")
+	private BigDecimal valorUnitario;
+
+	@OneToOne
+	private CategoriaProduto categoriaProduto;
+	@OneToOne
+	private Estoque estoque;
+
+	public Produto() {
+	}
 }

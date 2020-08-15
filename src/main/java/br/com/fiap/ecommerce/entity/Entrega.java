@@ -1,5 +1,6 @@
 package br.com.fiap.ecommerce.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -17,22 +18,29 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "entrega")
-@Setter @Getter
-public class Entrega {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-    @Column(name = "DATA_PREVISTA")
-    @Temporal(value = TemporalType.DATE)
-    Calendar dataPrevista;
-    @Column(name = "DATA_STATUS")
-    @Temporal(value = TemporalType.DATE)
-    Calendar dataStatus;
+@Setter
+@Getter
+public class Entrega implements Serializable {
 
-    @OneToOne
-    private Pedido pedido;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public Entrega() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+	@Column(name = "DATA_PREVISTA")
+	@Temporal(value = TemporalType.DATE)
+	Calendar dataPrevista;
+	@Column(name = "DATA_STATUS")
+	@Temporal(value = TemporalType.DATE)
+	Calendar dataStatus;
+
+	@OneToOne
+	private Pedido pedido;
+
+	public Entrega() {
+	}
 }

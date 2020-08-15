@@ -1,5 +1,7 @@
 package br.com.fiap.ecommerce.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,18 +17,25 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tipo_pagamento")
-@Getter @Setter
-public class TipoPagamento {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "FORMA_PAGAMENTO")
-    FormaPagamento formaPagamento;
-    @Column(name = "ATIVO")
-    private boolean ativo;
+@Getter
+@Setter
+public class TipoPagamento implements Serializable {
 
-    public TipoPagamento() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "FORMA_PAGAMENTO")
+	FormaPagamento formaPagamento;
+	@Column(name = "ATIVO")
+	private boolean ativo;
+
+	public TipoPagamento() {
+	}
 }
