@@ -30,13 +30,21 @@ public class IEcommerceServiceImpl implements IEcommerceService {
 
 	@Autowired
 	ClienteRepository clienteRepository;
+	@Autowired
 	CategoriaProdutoRepository categoriaRepository;
+	@Autowired
 	EntregaRepository entregaRepository;
+	@Autowired
 	PedidoRepository pedidoRepository;
+	@Autowired
 	ProdutoRepository produtoRepository;
+	@Autowired
 	RastreamentoRepository rastreamentoRepository;
+	@Autowired
 	StatusRepository statusRepository;
+	@Autowired
 	TipoPagamentoRepository tipoPagamentoRepository;
+	@Autowired
 	EnderecoRepository enderecoRepository;
 
 	@Override

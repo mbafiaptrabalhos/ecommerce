@@ -88,7 +88,7 @@ public class EcommerceApplication implements CommandLineRunner {
         categoriaProduto.setCategoria("Eletrodomestico");
 
         CategoriaProduto categoriaProduto2 = new CategoriaProduto();
-        categoriaProduto.setCategoria("Celular");
+        categoriaProduto2.setCategoria("Celular");
 
         categoriaProdutoRepository.save(categoriaProduto);
         categoriaProdutoRepository.save(categoriaProduto2);

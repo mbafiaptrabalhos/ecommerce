@@ -128,12 +128,6 @@ public class EcommerceController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
-	@DeleteMapping("categoria/{id}")
-	public ResponseEntity<Void> deleteCategoria(@PathVariable("id") Long id) {
-		service.deleteCategoria(id);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	}
-
 	// Update
 
 	@PutMapping("produto")
