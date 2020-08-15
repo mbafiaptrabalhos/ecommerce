@@ -33,9 +33,6 @@ public class Endereco {
     @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_ENDERECO")
     private TipoEndereco tipoEndereco;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IDCLIENTE")
-    private Cliente cliente;
 
     public Endereco() {
     }

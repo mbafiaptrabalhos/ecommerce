@@ -25,13 +25,13 @@ public class Produto {
     private String nome;
     @Column(name = "DESCRICAO")
     private String descricao;
-    @Column(name = "QTD_ESTOQUE")
-    private Long qtdEstoque;
     @Column(name = "VALOR_UNITARIO")
     private BigDecimal valorUnitario;
 
     @OneToOne
     private CategoriaProduto categoriaProduto;
+    @OneToOne
+    private Estoque estoque;
 
     public Produto() {
     }

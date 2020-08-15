@@ -25,25 +25,33 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "VALOR_TOTAL")
-    private BigDecimal valorTotal;
     @Temporal(value = TemporalType.DATE)
     @Column(name = "DATA_PEDIDO")
     private Calendar dataPedido;
+    @Column(name = "VALOR_TOTAL")
+    private BigDecimal valorTotal;
 
-    @ManyToOne
+    @OneToOne
     private Cliente cliente;
     @OneToOne
     private TipoPagamento tipoPagamento;
     @OneToMany
-    private List<Produto> produtos = new ArrayList<>();
+    private List<Item> item;
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public List<Item> getItem() {
+        return item;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setItem(List<Item> item) {
+        this.item = item;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public TipoPagamento getTipoPagamento() {
@@ -60,14 +68,6 @@ public class Pedido {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     public Calendar getDataPedido() {

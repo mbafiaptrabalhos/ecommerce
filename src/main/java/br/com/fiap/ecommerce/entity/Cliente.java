@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter @Setter
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
     @Column(name = "NOME")
@@ -32,8 +32,9 @@ public class Cliente {
     private String cnpj;
     @Column(name = "ATIVO")
     private boolean ativo;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-    private Set<Endereco> enderecos = new LinkedHashSet<>();
+
+    @OneToMany
+    private Set<Endereco> enderecos = new LinkedHashSet<Endereco>();
 
     public Cliente() {
     }
