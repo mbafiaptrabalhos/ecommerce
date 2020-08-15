@@ -1,22 +1,40 @@
 package br.com.fiap.ecommerce;
 
-import br.com.fiap.ecommerce.entity.*;
-import br.com.fiap.ecommerce.entity.enums.FormaPagamento;
-import br.com.fiap.ecommerce.entity.enums.StatusRastreamento;
-import br.com.fiap.ecommerce.entity.enums.TipoEndereco;
-import br.com.fiap.ecommerce.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+
+import br.com.fiap.ecommerce.entity.CategoriaProduto;
+import br.com.fiap.ecommerce.entity.Cliente;
+import br.com.fiap.ecommerce.entity.Endereco;
+import br.com.fiap.ecommerce.entity.Entrega;
+import br.com.fiap.ecommerce.entity.Pedido;
+import br.com.fiap.ecommerce.entity.Produto;
+import br.com.fiap.ecommerce.entity.Rastreamento;
+import br.com.fiap.ecommerce.entity.Status;
+import br.com.fiap.ecommerce.entity.TipoPagamento;
+import br.com.fiap.ecommerce.entity.enums.FormaPagamento;
+import br.com.fiap.ecommerce.entity.enums.StatusRastreamento;
+import br.com.fiap.ecommerce.entity.enums.TipoEndereco;
+import br.com.fiap.ecommerce.repository.CategoriaProdutoRepository;
+import br.com.fiap.ecommerce.repository.ClienteRepository;
+import br.com.fiap.ecommerce.repository.EntregaRepository;
+import br.com.fiap.ecommerce.repository.PedidoRepository;
+import br.com.fiap.ecommerce.repository.ProdutoRepository;
+import br.com.fiap.ecommerce.repository.RastreamentoRepository;
+import br.com.fiap.ecommerce.repository.StatusRepository;
+import br.com.fiap.ecommerce.repository.TipoPagamentoRepository;
+
 @SpringBootApplication
+@EnableCaching
 public class EcommerceApplication implements CommandLineRunner {
 
     @Autowired
@@ -50,7 +68,7 @@ public class EcommerceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Start persistência");
-        massaTeste();
+//        massaTeste();
     }
 
     private void massaTeste() {
