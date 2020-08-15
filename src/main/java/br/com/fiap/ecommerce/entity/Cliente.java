@@ -1,5 +1,6 @@
 package br.com.fiap.ecommerce.entity;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,8 +35,13 @@ public class Cliente {
     @Column(name = "ATIVO")
     private boolean ativo;
 
-    @OneToMany
-    private Set<Endereco> enderecos = new LinkedHashSet<Endereco>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "cliente")
+    @JsonIgnoreProperties("cliente")
+    private Set<Endereco> enderecos = new HashSet<Endereco>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "cliente")
+    @JsonIgnoreProperties("cliente")
+    private Set<Pedido> pedidos = new HashSet<Pedido>();
 
     public Cliente() {
     }

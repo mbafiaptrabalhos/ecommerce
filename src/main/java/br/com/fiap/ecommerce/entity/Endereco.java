@@ -1,16 +1,6 @@
 package br.com.fiap.ecommerce.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import br.com.fiap.ecommerce.entity.enums.TipoEndereco;
 import lombok.Getter;
@@ -33,6 +23,10 @@ public class Endereco {
     @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_ENDERECO")
     private TipoEndereco tipoEndereco;
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     public Endereco() {
     }

@@ -129,7 +129,7 @@ public class IEcommerceServiceImpl implements IEcommerceService {
 
 	@Override
 	public void deleteProduto(long id) {
-		produtoRepository.delete(produtoRepository.findById(id).get());
+		produtoRepository.deleteById(id);
 	}
 
 	@Override

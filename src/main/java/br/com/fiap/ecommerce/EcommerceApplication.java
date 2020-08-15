@@ -11,10 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @SpringBootApplication
 public class EcommerceApplication implements CommandLineRunner {
@@ -59,43 +56,56 @@ public class EcommerceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Start persistência");
-        massaTeste();
+        //massaTeste();
     }
 
     private void massaTeste() {
         // Massa de teste
+        Cliente cliente = new Cliente();
+
         Endereco enderecoCobranca = new Endereco();
         enderecoCobranca.setRua("rua onde judas perdeu as botas, 456");
         enderecoCobranca.setCep("04841-100");
         enderecoCobranca.setCidade("Salvador");
+        enderecoCobranca.setCliente(cliente);
         enderecoCobranca.setTipoEndereco(TipoEndereco.COBRANCA);
 
         Endereco enderecoEntrega = new Endereco();
         enderecoEntrega.setRua("Av. a volta dos que não foram, 1500");
         enderecoEntrega.setCep("04841-100");
         enderecoEntrega.setCidade("Salvador");
+        enderecoEntrega.setCliente(cliente);
         enderecoEntrega.setTipoEndereco(TipoEndereco.ENTREGA);
-
-        enderecoRepository.save(enderecoCobranca);
-        enderecoRepository.save(enderecoEntrega);
 
         Set<Endereco> enderecos = new LinkedHashSet<>();
         enderecos.add(enderecoCobranca);
         enderecos.add(enderecoEntrega);
 
-        Cliente cliente = new Cliente();
+        Pedido pedido = new Pedido();
+        Pedido pedido2 = new Pedido();
+
+        Set<Pedido> pedidos = new HashSet<Pedido>();
+        pedidos.add(pedido);
+        pedidos.add(pedido2);
+
         cliente.setNome("Alessandra Silva");
         cliente.setCnpj("");
         cliente.setCpf("214.789.456-89");
         cliente.setEnderecos(enderecos);
+        cliente.setPedidos(pedidos);
         cliente.setAtivo(true);
-
-        clienteRepository.save(cliente);
 
         TipoPagamento tipoPagamento = new TipoPagamento();
         tipoPagamento.setFormaPagamento(FormaPagamento.BOLETO);
         tipoPagamento.setAtivo(true);
-        tipoPagamentoRepository.save(tipoPagamento);
+
+        TipoPagamento tipoPagamento2 = new TipoPagamento();
+        tipoPagamento2.setFormaPagamento(FormaPagamento.CARTAO);
+        tipoPagamento2.setAtivo(true);
+
+        TipoPagamento tipoPagamento3 = new TipoPagamento();
+        tipoPagamento3.setFormaPagamento(FormaPagamento.VOUCHER);
+        tipoPagamento3.setAtivo(false);
 
         CategoriaProduto categoriaProduto = new CategoriaProduto();
         categoriaProduto.setCategoria("Eletrodomestico");
@@ -106,9 +116,8 @@ public class EcommerceApplication implements CommandLineRunner {
         CategoriaProduto categoriaProduto3 = new CategoriaProduto();
         categoriaProduto3.setCategoria("Automotivo");
 
-        categoriaProdutoRepository.save(categoriaProduto);
-        categoriaProdutoRepository.save(categoriaProduto2);
-        categoriaProdutoRepository.save(categoriaProduto3);
+        CategoriaProduto categoriaProduto4 = new CategoriaProduto();
+        categoriaProduto4.setCategoria("tv");
 
         Estoque estoque = new Estoque();
         estoque.setQuantidade(3L);
@@ -121,11 +130,6 @@ public class EcommerceApplication implements CommandLineRunner {
 
         Estoque estoque4 = new Estoque();
         estoque4.setQuantidade(6L);
-
-        estoqueRepository.save(estoque);
-        estoqueRepository.save(estoque2);
-        estoqueRepository.save(estoque3);
-        estoqueRepository.save(estoque4);
 
         Produto produto = new Produto();
         produto.setCategoriaProduto(categoriaProduto);
@@ -142,7 +146,7 @@ public class EcommerceApplication implements CommandLineRunner {
         produto2.setValorUnitario(new BigDecimal(3000.00));
 
         Produto produto3 = new Produto();
-        produto3.setCategoriaProduto(categoriaProduto2);
+        produto3.setCategoriaProduto(categoriaProduto4);
         produto3.setDescricao("Novo lg");
         produto3.setNome("LG A6");
         produto3.setEstoque(estoque3);
@@ -155,42 +159,34 @@ public class EcommerceApplication implements CommandLineRunner {
         produto4.setEstoque(estoque4);
         produto4.setValorUnitario(new BigDecimal(199.90));
 
-        produtoRepository.save(produto);
-        produtoRepository.save(produto2);
-        produtoRepository.save(produto3);
-        produtoRepository.save(produto4);
-
         Item item = new Item();
         item.setProduto(produto);
+        item.setPedido(pedido);
         item.setQuantidade(1L);
 
         Item item2 = new Item();
         item2.setProduto(produto2);
+        item2.setPedido(pedido);
         item2.setQuantidade(1L);
 
         Item item3 = new Item();
         item3.setProduto(produto3);
+        item3.setPedido(pedido2);
         item3.setQuantidade(1L);
 
         Item item4 = new Item();
         item4.setProduto(produto4);
+        item4.setPedido(pedido2);
         item4.setQuantidade(2L);
 
-        itemRepository.save(item);
-        itemRepository.save(item2);
-        itemRepository.save(item3);
-        itemRepository.save(item4);
-
-        Pedido pedido = new Pedido();
         pedido.setDataPedido(Calendar.getInstance());
         pedido.setTipoPagamento(tipoPagamento);
         pedido.setCliente(cliente);
         pedido.setItem(Arrays.asList(item, item2));
         pedido.setValorTotal(new BigDecimal(3200.00));
 
-        Pedido pedido2 = new Pedido();
         pedido2.setDataPedido(Calendar.getInstance());
-        pedido2.setTipoPagamento(tipoPagamento);
+        pedido2.setTipoPagamento(tipoPagamento2);
         pedido2.setCliente(cliente);
         pedido2.setItem(Arrays.asList(item3, item4));
         pedido2.setValorTotal(new BigDecimal(1049.8));

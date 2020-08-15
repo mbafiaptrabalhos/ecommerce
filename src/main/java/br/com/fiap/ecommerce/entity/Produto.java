@@ -1,15 +1,12 @@
 package br.com.fiap.ecommerce.entity;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,10 +25,14 @@ public class Produto {
     @Column(name = "VALOR_UNITARIO")
     private BigDecimal valorUnitario;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private CategoriaProduto categoriaProduto;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Estoque estoque;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "produto")
+    @JsonIgnoreProperties("produto")
+    private Set<Item> itens = new HashSet<Item>();
 
     public Produto() {
     }

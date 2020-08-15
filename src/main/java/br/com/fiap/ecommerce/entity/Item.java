@@ -1,5 +1,6 @@
 package br.com.fiap.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,13 @@ public class Item implements Serializable {
     @Column(name = "QUANTIDADE")
     private Long quantidade;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "produto_id")
+    @JsonIgnoreProperties("itens")
     private Produto produto;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pedido_id")
+    @JsonIgnoreProperties("itens")
+    public Pedido pedido;
 }
