@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "endereco")
-@Getter @Setter @Builder
+@Getter @Setter
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +27,7 @@ public class Endereco {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDCLIENTE")
     private Cliente cliente;
+
+    public Endereco() {
+    }
 }

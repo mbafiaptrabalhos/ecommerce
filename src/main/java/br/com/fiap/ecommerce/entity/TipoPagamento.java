@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tipo_pagamento")
-@Getter @Setter @Builder
+@Getter @Setter
 public class TipoPagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +20,7 @@ public class TipoPagamento {
     FormaPagamento formaPagamento;
     @Column(name = "ATIVO")
     private boolean ativo;
+
+    public TipoPagamento() {
+    }
 }

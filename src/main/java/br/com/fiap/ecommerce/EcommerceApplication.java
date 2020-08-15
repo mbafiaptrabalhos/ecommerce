@@ -11,8 +11,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @SpringBootApplication
 public class EcommerceApplication implements CommandLineRunner {
@@ -48,75 +50,69 @@ public class EcommerceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Start persistência");
+        massaTeste();
+    }
 
+    private void massaTeste() {
         // Massa de teste
-        Endereco enderecoCobranca = Endereco.builder()
-                .rua("rua onde judas perdeu as botas, 456")
-                .cep("04841-100")
-                .cidade("Salvador")
-                .tipoEndereco(TipoEndereco.COBRANCA)
-                .build();
+        Endereco enderecoCobranca = new Endereco();
+        enderecoCobranca.setRua("rua onde judas perdeu as botas, 456");
+        enderecoCobranca.setCep("04841-100");
+        enderecoCobranca.setCidade("Salvador");
+        enderecoCobranca.setTipoEndereco(TipoEndereco.COBRANCA);
 
-        Endereco enderecoEntrega = Endereco.builder()
-                .rua("Av. a volta dos que não foram, 1500")
-                .cep("04841-100")
-                .cidade("Salvador")
-                .tipoEndereco(TipoEndereco.ENTREGA)
-                .build();
+        Endereco enderecoEntrega = new Endereco();
+        enderecoEntrega.setRua("Av. a volta dos que não foram, 1500");
+        enderecoEntrega.setCep("04841-100");
+        enderecoEntrega.setCidade("Salvador");
+        enderecoEntrega.setTipoEndereco(TipoEndereco.ENTREGA);
 
         Set<Endereco> enderecos = new LinkedHashSet<>();
         enderecos.add(enderecoCobranca);
         enderecos.add(enderecoEntrega);
 
-        Cliente cliente = Cliente.builder()
-                .nome("Alessandra Silva")
-                .cpf("214.789.456-89")
-                .cnpj("")
-                .ativo(true)
-                .enderecos(enderecos)
-                .build();
+        Cliente cliente = new Cliente();
+        cliente.setNome("Alessandra Silva");
+        cliente.setCnpj("");
+        cliente.setCpf("214.789.456-89");
+        cliente.setEnderecos(enderecos);
 
-        TipoPagamento tipoPagamento = TipoPagamento.builder()
-                .formaPagamento(FormaPagamento.BOLETO)
-                .ativo(true)
-                .build();
+        TipoPagamento tipoPagamento = new TipoPagamento();
+        tipoPagamento.setFormaPagamento(FormaPagamento.BOLETO);
+        tipoPagamento.setAtivo(true);
         tipoPagamentoRepository.save(tipoPagamento);
 
         clienteRepository.save(cliente);
 
-        CategoriaProduto categoriaProduto = CategoriaProduto.builder()
-                .categoria("Eletrodomestico")
-                .build();
-        CategoriaProduto categoriaProduto2 = CategoriaProduto.builder()
-                .categoria("Celular")
-                .build();
+        CategoriaProduto categoriaProduto = new CategoriaProduto();
+        categoriaProduto.setCategoria("Eletrodomestico");
+
+        CategoriaProduto categoriaProduto2 = new CategoriaProduto();
+        categoriaProduto.setCategoria("Celular");
 
         categoriaProdutoRepository.save(categoriaProduto);
         categoriaProdutoRepository.save(categoriaProduto2);
 
-        Produto produto = Produto.builder()
-                .categoriaProduto(categoriaProduto)
-                .descricao("Bate qualquer coisa")
-                .nome("Liquidificar Ninja")
-                .qtdEstoque(3L)
-                .valorUnitario(new BigDecimal(200.00))
-                .build();
+        Produto produto = new Produto();
+        produto.setCategoriaProduto(categoriaProduto);
+        produto.setDescricao("Bate qualquer coisa");
+        produto.setNome("Liquidificar Ninja");
+        produto.setQtdEstoque(3L);
+        produto.setValorUnitario(new BigDecimal(200.00));
 
-        Produto produto2 = Produto.builder()
-                .categoriaProduto(categoriaProduto2)
-                .descricao("Onde nao tem sinal esse equipamento tera")
-                .nome("Celular Chuck Norris")
-                .qtdEstoque(10L)
-                .valorUnitario(new BigDecimal(3000.00))
-                .build();
+        Produto produto2 = new Produto();
+        produto2.setCategoriaProduto(categoriaProduto2);
+        produto2.setDescricao("Onde nao tem sinal esse equipamento tera");
+        produto2.setNome("Celular Chuck Norris");
+        produto2.setQtdEstoque(10L);
+        produto2.setValorUnitario(new BigDecimal(3000.00));
 
-        Produto produto3 = Produto.builder()
-                .categoriaProduto(categoriaProduto2)
-                .descricao("Novo lg")
-                .nome("LG A6")
-                .qtdEstoque(10L)
-                .valorUnitario(new BigDecimal(650.00))
-                .build();
+        Produto produto3 = new Produto();
+        produto3.setCategoriaProduto(categoriaProduto2);
+        produto3.setDescricao("Novo lg");
+        produto3.setNome("LG A6");
+        produto3.setQtdEstoque(5L);
+        produto3.setValorUnitario(new BigDecimal(650.00));
 
         produtoRepository.save(produto);
         produtoRepository.save(produto2);
@@ -139,36 +135,33 @@ public class EcommerceApplication implements CommandLineRunner {
         pedidoRepository.save(pedido);
         pedidoRepository.save(pedido2);
 
-        Entrega entrega = Entrega.builder()
-                .pedido(pedido)
-                .dataPrevista(Calendar.getInstance())
-                .dataStatus(Calendar.getInstance())
-                .build();
+        Entrega entrega = new Entrega();
+        entrega.setPedido(pedido);
+        entrega.setDataPrevista(Calendar.getInstance());
+        entrega.setDataStatus(Calendar.getInstance());
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, 10);
-        Entrega entrega2 = Entrega.builder()
-                .pedido(pedido2)
-                .dataPrevista(calendar)
-                .dataStatus(Calendar.getInstance())
-                .build();
+        Entrega entrega2 = new Entrega();
+        entrega2.setPedido(pedido2);
+        entrega2.setDataPrevista(calendar);
+        entrega2.setDataStatus(Calendar.getInstance());
 
         entregaRepository.save(entrega);
         entregaRepository.save(entrega2);
 
-        Status status = Status.builder()
-                .statusRastreamento(StatusRastreamento.EM_TRANSITO)
-                .build();
+        Status status = new Status();
+        status.setStatusRastreamento(StatusRastreamento.EM_TRANSITO);
         statusRepository.save(status);
 
-        Rastreamento rastreamento = Rastreamento.builder()
-                .pedido(pedido)
-                .status(status)
-                .dataStatus(Calendar.getInstance())
-                .descricao("produto frágil")
-                .latitude("-23.5677666")
-                .longitude("-46.6487763")
-                .build();
+        Rastreamento rastreamento = new Rastreamento();
+        rastreamento.setPedido(pedido);
+        rastreamento.setStatus(status);
+        rastreamento.setDataStatus(Calendar.getInstance());
+        rastreamento.setDescricao("produto frágil");
+        rastreamento.setLatitude("-23.5677666");
+        rastreamento.setLongitude("-46.6487763");
+
         rastreamentoRepository.save(rastreamento);
     }
 }

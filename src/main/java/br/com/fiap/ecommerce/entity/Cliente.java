@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "clientes")
-@Getter @Setter @Builder
+@Getter @Setter
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,4 +26,7 @@ public class Cliente {
     private boolean ativo;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
     private Set<Endereco> enderecos = new LinkedHashSet<>();
+
+    public Cliente() {
+    }
 }

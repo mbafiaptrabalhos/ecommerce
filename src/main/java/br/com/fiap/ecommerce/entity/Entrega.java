@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 @Entity
 @Table(name = "entrega")
-@Setter @Getter @Builder
+@Setter @Getter
 public class Entrega {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +25,6 @@ public class Entrega {
     @OneToOne
     private Pedido pedido;
 
+    public Entrega() {
+    }
 }

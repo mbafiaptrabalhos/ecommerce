@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "produto")
-@Setter @Getter @Builder
+@Setter @Getter
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +26,7 @@ public class Produto {
 
     @OneToOne
     private CategoriaProduto categoriaProduto;
+
+    public Produto() {
+    }
 }

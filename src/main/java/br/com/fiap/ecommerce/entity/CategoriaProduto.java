@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "CATEGORIA_PRODUTO")
-@Setter @Getter @Builder
+@Setter @Getter
 public class CategoriaProduto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,4 +16,7 @@ public class CategoriaProduto {
     private Long id;
     @Column(name = "CATEGORIA")
     private String categoria;
+
+    public CategoriaProduto() {
+    }
 }

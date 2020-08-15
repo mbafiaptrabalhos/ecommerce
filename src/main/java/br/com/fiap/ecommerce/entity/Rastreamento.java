@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 @Entity
 @Table(name = "rastreamento")
-@Getter @Setter @Builder
+@Getter @Setter
 public class Rastreamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +29,7 @@ public class Rastreamento {
     private Pedido pedido;
     @OneToOne
     private Status status;
+
+    public Rastreamento() {
+    }
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "status")
-@Getter @Setter @Builder
+@Getter @Setter
 public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +18,7 @@ public class Status {
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS_RASTREAMENTO")
     StatusRastreamento statusRastreamento;
+
+    public Status() {
+    }
 }
