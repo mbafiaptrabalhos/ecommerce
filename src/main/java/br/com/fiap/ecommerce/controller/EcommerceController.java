@@ -26,7 +26,10 @@ import br.com.fiap.ecommerce.entity.Rastreamento;
 import br.com.fiap.ecommerce.entity.Status;
 import br.com.fiap.ecommerce.entity.TipoPagamento;
 import br.com.fiap.ecommerce.service.IEcommerceService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(value="API REST ecommerce")
 @RestController
 @RequestMapping("/api")
 public class EcommerceController {
@@ -35,11 +38,13 @@ public class EcommerceController {
 	IEcommerceService service;
 
 	// Get All
+	@ApiOperation(value="Retorna Lista de Categoria de Produto")
 	@GetMapping("/clientes")
 	public ResponseEntity<List<Cliente>> getAllCliente() {
 		return ResponseEntity.ok(service.getAllCliente());
 	}
 
+	@ApiOperation(value="Retorna Lista de Categoria de Clientes")
 	@GetMapping("/categoriaProduto")
 	public ResponseEntity<List<CategoriaProduto>> getAllCategorias() {
 		return ResponseEntity.ok(service.getAllCategorias());
