@@ -20,6 +20,7 @@ import br.com.fiap.ecommerce.entity.CategoriaProduto;
 import br.com.fiap.ecommerce.entity.Cliente;
 import br.com.fiap.ecommerce.entity.Endereco;
 import br.com.fiap.ecommerce.entity.Entrega;
+import br.com.fiap.ecommerce.entity.Pedido;
 import br.com.fiap.ecommerce.entity.Produto;
 import br.com.fiap.ecommerce.entity.Rastreamento;
 import br.com.fiap.ecommerce.entity.Status;
@@ -73,6 +74,11 @@ public class EcommerceController {
 	public ResponseEntity<List<Endereco>> getAllEndereco() {
 		return ResponseEntity.ok(service.getAllEndereco());
 	}
+	
+	@GetMapping("/pedidos")
+	public ResponseEntity<List<Pedido>> getAllPedido() {
+		return ResponseEntity.ok(service.getAllPedido());
+	}
 
 	// Get id
 
@@ -86,6 +92,12 @@ public class EcommerceController {
 	public ResponseEntity<Cliente> getClienteById(@PathVariable("id") Long id) {
 		Cliente cliente = service.getClienteById(id);
 		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+	}
+	
+	@GetMapping("pedido/{id}")
+	public ResponseEntity<Pedido> getPedidoById(@PathVariable("id") Long id) {
+		Pedido pedido = service.getPedidoById(id);
+		return new ResponseEntity<Pedido>(pedido, HttpStatus.OK);
 	}
 
 	// Add
@@ -102,7 +114,7 @@ public class EcommerceController {
 	public ResponseEntity<Void> addCliente(@RequestBody Cliente cliente, UriComponentsBuilder builder) {
 		Cliente salvarCliente = service.addCliente(cliente);
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path("/produto/{id}").buildAndExpand(salvarCliente.getId()).toUri());
+		headers.setLocation(builder.path("/cliente/{id}").buildAndExpand(salvarCliente.getId()).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
@@ -110,10 +122,18 @@ public class EcommerceController {
 	public ResponseEntity<Void> addCategoria(@RequestBody CategoriaProduto categoria, UriComponentsBuilder builder) {
 		CategoriaProduto salvarCategoria = service.addCategoria(categoria);
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path("/produto/{id}").buildAndExpand(salvarCategoria.getId()).toUri());
+		headers.setLocation(builder.path("/categoria/{id}").buildAndExpand(salvarCategoria.getId()).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
+	@PostMapping("pedido") 
+	public ResponseEntity<Void> addCategoria(@RequestBody Pedido categoria, UriComponentsBuilder builder) {
+		Pedido salvarPedido = service.addPedido(categoria);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(builder.path("/pedido/{id}").buildAndExpand(salvarPedido.getId()).toUri());
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+	
 	// Delete
 
 	@DeleteMapping("produto/{id}")

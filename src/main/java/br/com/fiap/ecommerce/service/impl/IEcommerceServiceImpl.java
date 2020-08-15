@@ -98,6 +98,11 @@ public class IEcommerceServiceImpl implements IEcommerceService {
 	}
 
 	@Override
+	public Pedido getPedidoById(long id) {
+		return pedidoRepository.findById(id).get();
+	}
+	
+	@Override
 	public Cliente getClienteById(long id) {
 		return clienteRepository.findById(id).get();
 	}
@@ -105,6 +110,11 @@ public class IEcommerceServiceImpl implements IEcommerceService {
 	@Override
 	public Produto addProduto(Produto produto) {
 		return produtoRepository.save(produto);
+	}
+	
+	@Override
+	public Pedido addPedido(Pedido pedido) {
+		return pedidoRepository.save(pedido);
 	}
 
 	@Override
@@ -146,4 +156,5 @@ public class IEcommerceServiceImpl implements IEcommerceService {
 	public CategoriaProduto updateCategoria(CategoriaProduto categoria) {
 		return categoriaRepository.save(categoria);
 	}
+	
 }
