@@ -154,7 +154,7 @@ public class IEcommerceServiceImpl implements IEcommerceService {
 	@Override
 	@CacheEvict(value = "allProdutosCache", allEntries = true)
 	public void deleteProduto(long id) {
-		produtoRepository.delete(produtoRepository.findById(id).get());
+		produtoRepository.deleteById(id);
 	}
 
 	@Override

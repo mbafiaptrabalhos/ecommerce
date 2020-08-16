@@ -2,22 +2,18 @@ package br.com.fiap.ecommerce.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "produto")
-@Setter
-@Getter
+@Setter @Getter
 public class Produto implements Serializable {
 
 	/**
@@ -25,22 +21,26 @@ public class Produto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private Long id;
-	@Column(name = "NOME")
-	private String nome;
-	@Column(name = "DESCRICAO")
-	private String descricao;
-	@Column(name = "VALOR_UNITARIO")
-	private BigDecimal valorUnitario;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
+    @Column(name = "NOME")
+    private String nome;
+    @Column(name = "DESCRICAO")
+    private String descricao;
+    @Column(name = "VALOR_UNITARIO")
+    private BigDecimal valorUnitario;
 
-	@OneToOne
-	private CategoriaProduto categoriaProduto;
-	@OneToOne
-	private Estoque estoque;
+    @OneToOne(cascade = CascadeType.ALL)
+    private CategoriaProduto categoriaProduto;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Estoque estoque;
 
-	public Produto() {
-	}
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "produto")
+    @JsonIgnoreProperties("produto")
+    private Set<Item> itens = new HashSet<Item>();
+
+    public Produto() {
+    }
 }

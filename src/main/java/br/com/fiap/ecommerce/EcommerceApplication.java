@@ -1,10 +1,7 @@
 package br.com.fiap.ecommerce;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -79,175 +76,174 @@ public class EcommerceApplication implements CommandLineRunner {
 		SpringApplication.run(EcommerceApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		System.out.println("Start persistência");
-//        massaTeste();
-	}
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("Start persistência");
+        //massaTeste();
+    }
 
-	private void massaTeste() {
-		// Massa de teste
-		Endereco enderecoCobranca = new Endereco();
-		enderecoCobranca.setRua("rua onde judas perdeu as botas, 456");
-		enderecoCobranca.setCep("04841-100");
-		enderecoCobranca.setCidade("Salvador");
-		enderecoCobranca.setTipoEndereco(TipoEndereco.COBRANCA);
+    private void massaTeste() {
+        // Massa de teste
+        Cliente cliente = new Cliente();
 
-		Endereco enderecoEntrega = new Endereco();
-		enderecoEntrega.setRua("Av. a volta dos que não foram, 1500");
-		enderecoEntrega.setCep("04841-100");
-		enderecoEntrega.setCidade("Salvador");
-		enderecoEntrega.setTipoEndereco(TipoEndereco.ENTREGA);
+        Endereco enderecoCobranca = new Endereco();
+        enderecoCobranca.setRua("rua onde judas perdeu as botas, 456");
+        enderecoCobranca.setCep("04841-100");
+        enderecoCobranca.setCidade("Salvador");
+        enderecoCobranca.setCliente(cliente);
+        enderecoCobranca.setTipoEndereco(TipoEndereco.COBRANCA);
 
-		enderecoRepository.save(enderecoCobranca);
-		enderecoRepository.save(enderecoEntrega);
+        Endereco enderecoEntrega = new Endereco();
+        enderecoEntrega.setRua("Av. a volta dos que não foram, 1500");
+        enderecoEntrega.setCep("04841-100");
+        enderecoEntrega.setCidade("Salvador");
+        enderecoEntrega.setCliente(cliente);
+        enderecoEntrega.setTipoEndereco(TipoEndereco.ENTREGA);
 
-		Set<Endereco> enderecos = new LinkedHashSet<>();
-		enderecos.add(enderecoCobranca);
-		enderecos.add(enderecoEntrega);
+        Set<Endereco> enderecos = new LinkedHashSet<>();
+        enderecos.add(enderecoCobranca);
+        enderecos.add(enderecoEntrega);
 
-		Cliente cliente = new Cliente();
-		cliente.setNome("Alessandra Silva");
-		cliente.setCnpj("");
-		cliente.setCpf("214.789.456-89");
-		cliente.setEnderecos(enderecos);
-		cliente.setAtivo(true);
+        Pedido pedido = new Pedido();
+        Pedido pedido2 = new Pedido();
 
-		clienteRepository.save(cliente);
+        Set<Pedido> pedidos = new HashSet<Pedido>();
+        pedidos.add(pedido);
+        pedidos.add(pedido2);
 
-		TipoPagamento tipoPagamento = new TipoPagamento();
-		tipoPagamento.setFormaPagamento(FormaPagamento.BOLETO);
-		tipoPagamento.setAtivo(true);
-		tipoPagamentoRepository.save(tipoPagamento);
+        cliente.setNome("Alessandra Silva");
+        cliente.setCnpj("");
+        cliente.setCpf("214.789.456-89");
+        cliente.setEnderecos(enderecos);
+        cliente.setPedidos(pedidos);
+        cliente.setAtivo(true);
 
-		CategoriaProduto categoriaProduto = new CategoriaProduto();
-		categoriaProduto.setCategoria("Eletrodomestico");
+        TipoPagamento tipoPagamento = new TipoPagamento();
+        tipoPagamento.setFormaPagamento(FormaPagamento.BOLETO);
+        tipoPagamento.setAtivo(true);
 
-		CategoriaProduto categoriaProduto2 = new CategoriaProduto();
-		categoriaProduto2.setCategoria("Celular");
+        TipoPagamento tipoPagamento2 = new TipoPagamento();
+        tipoPagamento2.setFormaPagamento(FormaPagamento.CARTAO);
+        tipoPagamento2.setAtivo(true);
 
-		CategoriaProduto categoriaProduto3 = new CategoriaProduto();
-		categoriaProduto3.setCategoria("Automotivo");
+        TipoPagamento tipoPagamento3 = new TipoPagamento();
+        tipoPagamento3.setFormaPagamento(FormaPagamento.VOUCHER);
+        tipoPagamento3.setAtivo(false);
 
-		categoriaProdutoRepository.save(categoriaProduto);
-		categoriaProdutoRepository.save(categoriaProduto2);
-		categoriaProdutoRepository.save(categoriaProduto3);
+        CategoriaProduto categoriaProduto = new CategoriaProduto();
+        categoriaProduto.setCategoria("Eletrodomestico");
 
-		Estoque estoque = new Estoque();
-		estoque.setQuantidade(3L);
+        CategoriaProduto categoriaProduto2 = new CategoriaProduto();
+        categoriaProduto2.setCategoria("Celular");
 
-		Estoque estoque2 = new Estoque();
-		estoque2.setQuantidade(10L);
+        CategoriaProduto categoriaProduto3 = new CategoriaProduto();
+        categoriaProduto3.setCategoria("Automotivo");
 
-		Estoque estoque3 = new Estoque();
-		estoque3.setQuantidade(5L);
+        CategoriaProduto categoriaProduto4 = new CategoriaProduto();
+        categoriaProduto4.setCategoria("tv");
 
-		Estoque estoque4 = new Estoque();
-		estoque4.setQuantidade(6L);
+        Estoque estoque = new Estoque();
+        estoque.setQuantidade(3L);
 
-		estoqueRepository.save(estoque);
-		estoqueRepository.save(estoque2);
-		estoqueRepository.save(estoque3);
-		estoqueRepository.save(estoque4);
+        Estoque estoque2 = new Estoque();
+        estoque2.setQuantidade(10L);
 
-		Produto produto = new Produto();
-		produto.setCategoriaProduto(categoriaProduto);
-		produto.setDescricao("Bate qualquer coisa");
-		produto.setNome("Liquidificador Ninja");
-		produto.setEstoque(estoque);
-		produto.setValorUnitario(new BigDecimal(200.00));
+        Estoque estoque3 = new Estoque();
+        estoque3.setQuantidade(5L);
 
-		Produto produto2 = new Produto();
-		produto2.setCategoriaProduto(categoriaProduto2);
-		produto2.setDescricao("Onde nao tem sinal esse equipamento tera");
-		produto2.setNome("Celular Chuck Norris");
-		produto2.setEstoque(estoque2);
-		produto2.setValorUnitario(new BigDecimal(3000.00));
+        Estoque estoque4 = new Estoque();
+        estoque4.setQuantidade(6L);
 
-		Produto produto3 = new Produto();
-		produto3.setCategoriaProduto(categoriaProduto2);
-		produto3.setDescricao("Novo lg");
-		produto3.setNome("LG A6");
-		produto3.setEstoque(estoque3);
-		produto3.setValorUnitario(new BigDecimal(650.00));
+        Produto produto = new Produto();
+        produto.setCategoriaProduto(categoriaProduto);
+        produto.setDescricao("Bate qualquer coisa");
+        produto.setNome("Liquidificador Ninja");
+        produto.setEstoque(estoque);
+        produto.setValorUnitario(new BigDecimal(200.00));
 
-		Produto produto4 = new Produto();
-		produto4.setCategoriaProduto(categoriaProduto3);
-		produto4.setDescricao("Som Automotivo Pioneer MP3 Player AM/FM USB - Auxiliar MVH-98UB");
-		produto4.setNome("Som Automotivo Pioneer MP3 Player");
-		produto4.setEstoque(estoque4);
-		produto4.setValorUnitario(new BigDecimal(199.90));
+        Produto produto2 = new Produto();
+        produto2.setCategoriaProduto(categoriaProduto2);
+        produto2.setDescricao("Onde nao tem sinal esse equipamento tera");
+        produto2.setNome("Celular Chuck Norris");
+        produto2.setEstoque(estoque2);
+        produto2.setValorUnitario(new BigDecimal(3000.00));
 
-		produtoRepository.save(produto);
-		produtoRepository.save(produto2);
-		produtoRepository.save(produto3);
-		produtoRepository.save(produto4);
+        Produto produto3 = new Produto();
+        produto3.setCategoriaProduto(categoriaProduto4);
+        produto3.setDescricao("Novo lg");
+        produto3.setNome("LG A6");
+        produto3.setEstoque(estoque3);
+        produto3.setValorUnitario(new BigDecimal(650.00));
 
-		Item item = new Item();
-		item.setProduto(produto);
-		item.setQuantidade(1L);
+        Produto produto4 = new Produto();
+        produto4.setCategoriaProduto(categoriaProduto3);
+        produto4.setDescricao("Som Automotivo Pioneer MP3 Player AM/FM USB - Auxiliar MVH-98UB");
+        produto4.setNome("Som Automotivo Pioneer MP3 Player");
+        produto4.setEstoque(estoque4);
+        produto4.setValorUnitario(new BigDecimal(199.90));
 
-		Item item2 = new Item();
-		item2.setProduto(produto2);
-		item2.setQuantidade(1L);
+        Item item = new Item();
+        item.setProduto(produto);
+        item.setPedido(pedido);
+        item.setQuantidade(1L);
 
-		Item item3 = new Item();
-		item3.setProduto(produto3);
-		item3.setQuantidade(1L);
+        Item item2 = new Item();
+        item2.setProduto(produto2);
+        item2.setPedido(pedido);
+        item2.setQuantidade(1L);
 
-		Item item4 = new Item();
-		item4.setProduto(produto4);
-		item4.setQuantidade(2L);
+        Item item3 = new Item();
+        item3.setProduto(produto3);
+        item3.setPedido(pedido2);
+        item3.setQuantidade(1L);
 
-		itemRepository.save(item);
-		itemRepository.save(item2);
-		itemRepository.save(item3);
-		itemRepository.save(item4);
+        Item item4 = new Item();
+        item4.setProduto(produto4);
+        item4.setPedido(pedido2);
+        item4.setQuantidade(2L);
 
-		Pedido pedido = new Pedido();
-		pedido.setDataPedido(Calendar.getInstance());
-		pedido.setTipoPagamento(tipoPagamento);
-		pedido.setCliente(cliente);
-		pedido.setItem(Arrays.asList(item, item2));
-		pedido.setValorTotal(new BigDecimal(3200.00));
+        pedido.setDataPedido(Calendar.getInstance());
+        pedido.setTipoPagamento(tipoPagamento);
+        pedido.setCliente(cliente);
+        pedido.setItem(Arrays.asList(item, item2));
+        pedido.setValorTotal(new BigDecimal(3200.00));
 
-		Pedido pedido2 = new Pedido();
-		pedido2.setDataPedido(Calendar.getInstance());
-		pedido2.setTipoPagamento(tipoPagamento);
-		pedido2.setCliente(cliente);
-		pedido2.setItem(Arrays.asList(item3, item4));
-		pedido2.setValorTotal(new BigDecimal(1049.8));
+        pedido2.setDataPedido(Calendar.getInstance());
+        pedido2.setTipoPagamento(tipoPagamento2);
+        pedido2.setCliente(cliente);
+        pedido2.setItem(Arrays.asList(item3, item4));
+        pedido2.setValorTotal(new BigDecimal(1049.8));
 
-		pedidoRepository.save(pedido);
-		pedidoRepository.save(pedido2);
+        pedidoRepository.save(pedido);
+        pedidoRepository.save(pedido2);
 
-		Entrega entrega = new Entrega();
-		entrega.setPedido(pedido);
-		entrega.setDataPrevista(Calendar.getInstance());
-		entrega.setDataStatus(Calendar.getInstance());
+        Entrega entrega = new Entrega();
+        entrega.setPedido(pedido);
+        entrega.setDataPrevista(Calendar.getInstance());
+        entrega.setDataStatus(Calendar.getInstance());
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, 10);
-		Entrega entrega2 = new Entrega();
-		entrega2.setPedido(pedido2);
-		entrega2.setDataPrevista(calendar);
-		entrega2.setDataStatus(Calendar.getInstance());
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, 10);
+        Entrega entrega2 = new Entrega();
+        entrega2.setPedido(pedido2);
+        entrega2.setDataPrevista(calendar);
+        entrega2.setDataStatus(Calendar.getInstance());
 
-		entregaRepository.save(entrega);
-		entregaRepository.save(entrega2);
+        entregaRepository.save(entrega);
+        entregaRepository.save(entrega2);
 
-		Status status = new Status();
-		status.setStatusRastreamento(StatusRastreamento.EM_TRANSITO);
-		statusRepository.save(status);
+        Status status = new Status();
+        status.setStatusRastreamento(StatusRastreamento.EM_TRANSITO);
+        statusRepository.save(status);
 
-		Rastreamento rastreamento = new Rastreamento();
-		rastreamento.setPedido(pedido);
-		rastreamento.setStatus(status);
-		rastreamento.setDataStatus(Calendar.getInstance());
-		rastreamento.setDescricao("produto frágil");
-		rastreamento.setLatitude("-23.5677666");
-		rastreamento.setLongitude("-46.6487763");
+        Rastreamento rastreamento = new Rastreamento();
+        rastreamento.setPedido(pedido);
+        rastreamento.setStatus(status);
+        rastreamento.setDataStatus(Calendar.getInstance());
+        rastreamento.setDescricao("produto frágil");
+        rastreamento.setLatitude("-23.5677666");
+        rastreamento.setLongitude("-46.6487763");
 
-		rastreamentoRepository.save(rastreamento);
-	}
+        rastreamentoRepository.save(rastreamento);
+    }
 }

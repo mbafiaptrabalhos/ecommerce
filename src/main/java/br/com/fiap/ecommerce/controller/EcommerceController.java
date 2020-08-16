@@ -1,31 +1,15 @@
 package br.com.fiap.ecommerce.controller;
 
-import java.util.List;
-
+import br.com.fiap.ecommerce.entity.*;
+import br.com.fiap.ecommerce.service.IEcommerceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.fiap.ecommerce.entity.CategoriaProduto;
-import br.com.fiap.ecommerce.entity.Cliente;
-import br.com.fiap.ecommerce.entity.Endereco;
-import br.com.fiap.ecommerce.entity.Entrega;
-import br.com.fiap.ecommerce.entity.Pedido;
-import br.com.fiap.ecommerce.entity.Produto;
-import br.com.fiap.ecommerce.entity.Rastreamento;
-import br.com.fiap.ecommerce.entity.Status;
-import br.com.fiap.ecommerce.entity.TipoPagamento;
-import br.com.fiap.ecommerce.service.IEcommerceService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -126,14 +110,15 @@ public class EcommerceController {
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
-	@PostMapping("pedido") 
-	public ResponseEntity<Void> addCategoria(@RequestBody Pedido categoria, UriComponentsBuilder builder) {
-		Pedido salvarPedido = service.addPedido(categoria);
+	@PostMapping("/pedido")
+	public ResponseEntity<Void> addPedido(@RequestBody Pedido pedido, UriComponentsBuilder builder) {
+		pedido.getItem().stream().forEach(i -> i.setPedido(pedido));
+		Pedido salvarPedido = service.addPedido(pedido);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(builder.path("/pedido/{id}").buildAndExpand(salvarPedido.getId()).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
-	
+
 	// Delete
 
 	@DeleteMapping("produto/{id}")
